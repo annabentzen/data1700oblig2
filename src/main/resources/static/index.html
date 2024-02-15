@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Kjøp av kinobilletter</title>
-    <script src="index.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
 <h1>Bestilling av kinobilletter</h1>
-<form action="/" method="get">
-    <div>
-        <label for="fornavn">Fornavn</label>
-        <input id="fornavn" fornavn="fornavn" type="text">
-    </div>
-    <div>
-        <label for="etternavn">Etternavn</label>
-        <input id="etternavn" etternavn="etternavn" type="text">
-    </div>
-    <div>
-        <label for="telefonnummer">Telefonnummer</label>
-        <input id="telefonnummer" telefonnummer="telefonnummer" type="number">
-    </div>
-    <div>
-        <label for="epost">E-post</label>
-        <input id="epost" epost="epost" type="email">
-    </div>
-    <div>
-        <button type="submit">Kjøp billett(er)</button>
-    </div>
+<form id="ticketForm">
+    <label for="name">Navn:</label><br>
+    <input type="text" id="name" required><br>
+    <label for="email">E-postadresse:</label><br>
+    <input type="email" id="email" required><br>
+    <label for="phone">Telefonnummer:</label><br>
+    <input type="tel" id="phone" required pattern="[0-9]{8}" title="Telefonnummer må være 8 siffer"><br>
+    <label for="quantity">Antall billetter:</label><br>
+    <input type="number" id="quantity" required min="1"><br>
+    <button type="submit">Kjøp billett</button>
 </form>
+<button id="deleteAll">Slett alle billettene</button><br>
 <h2>Alle billetter</h2>
+<ul id="ticketList"></ul>
 <div>
     <button type="reset">Slett alle billettene</button>
 </div>
