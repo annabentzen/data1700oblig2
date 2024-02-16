@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 };
 
                 tickets.push(ticket);
+                ticketForm.reset();
                 showTickets();
             }
         }
