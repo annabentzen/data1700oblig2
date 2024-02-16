@@ -16,36 +16,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const phone = document.getElementById('phone').value;
 
         //checks if all input fields are filled in
-        if (quantity <= 0 || !quantity) {
-            alert("Ugyldig antall billetter");
-        } else {
-            if (!movie) {
-                alert("Du må velge en film")
-            } else if (!firstname) {
-                alert("Du må fylle inn et fornavn")
-            } else if (!surname) {
-                alert("Du må fylle inn et etternavn")
-            } else if (!email) {
-                alert("Du må fylle inn en epostadresse.")
-            } else if (!phone) {
-                alert("Du må fylle inn et telefonnummer.")
-            } else {
-
-                // creates a ticket object
-                const ticket = {
-                    movie: movie,
-                    quantity: quantity,
-                    firstname: firstname,
-                    surname: surname,
-                    email: email,
-                    phone: phone
-                };
-
-                tickets.push(ticket);
-                ticketForm.reset();
-                showTickets();
-            }
+        if (!quantity || !movie || !firstname || !surname || !email || !phone) {
+            alert("Alle felt må fylles ut.");
+            return;
         }
+
+        // creates a ticket object
+        const ticket = {
+            movie: movie,
+            quantity: quantity,
+            firstname: firstname,
+            surname: surname,
+            email: email,
+            phone: phone
+        };
+
+        tickets.push(ticket);
+        ticketForm.reset();
+        showTickets();
     });
 
     // Event listener for deleting tickets
@@ -62,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ticketList.innerHTML = ' ';
         tickets.forEach(function (ticket, index) {
             const li = document.createElement('li');
-            li.textContent = `Film: ${ticket.movie}, Antall: ${ticket.quantity}, Fornavn: ${ticket.firstname}, Etternavn: ${ticket.surname} E-post: ${ticket.email}, Telefon: ${ticket.phone}`;
+            li.textContent = `Film: ${ticket.movie}, Antall: ${ticket.quantity}, Fornavn: ${ticket.firstname}, Etternavn: ${ticket.surname}, E-post: ${ticket.email}, Telefon: ${ticket.phone}`;
             ticketList.appendChild(li);
         });
     }
