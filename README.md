@@ -1,6 +1,6 @@
 anna bentzen
 studentnummer: 385488
-oblig 1 data1700
+oblig 2 data1700
 
 Oslomet brukernavn: anben7837
 Github brukernavn: annabentzen
