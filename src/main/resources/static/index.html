@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Kjøp av kinobilletter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="script.js"></script>
 </head>
 <body>
 <h1>Bestilling av kinobilletter</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
 <form id="ticketForm">
+    <div class="form-group">
     <label for="movie">Velg film:</label><br>
-    <select id="movie" required oninvalid="this.setCustomValidity('Du må velge en film')"
+    <select id="movie" class="form-control" required oninvalid="this.setCustomValidity('Du må velge en film')"
             oninput="this.setCustomValidity('')">
         <option value="" disabled selected>Velg film</option>
-        <option value="Barbie">Barbie</option>
-        <option value="Oppenheimer">Oppenheimer</option>
-        <option value="Gutten og hegren">Gutten og hegren</option>
-        <option value="Aftersun">Aftersun</option>
-    </select><br>
+    </select>
+    </div>
+    <div class="form-group">
     <label for="quantity">Antall billetter:</label><br>
-    <input type="number" id="quantity" required min="1" title="Velg antall billetter"
+    <input type="number" id="quantity" class="form-control" required min="1" title="Velg antall billetter"
            oninvalid="this.setCustomValidity('Du må velge et antall billetter')"
            oninput="this.setCustomValidity('')"><br>
+    </div>
     <label for="firstname">Fornavn:</label><br>
     <input type="text" id="firstname" required pattern="[a-zA-ZæøåÆØÅ]+" title="Skriv inn fornavn"
            oninvalid="this.setCustomValidity('Vennligst skriv inn et gyldig fornavn')"
@@ -37,12 +41,30 @@
     <input type="tel" id="phone" required pattern="[0-9+]{8-11}" title="Skriv inn telefonnummer"
            oninvalid="this.setCustomValidity('Vennligst skriv inn et gyldig telefonnummer, med eller uten landskode')"
            oninput="this.setCustomValidity('')"><br>
-    <button type="submit">Kjøp billett</button>
+    <button type="submit" class="btn btn-primary">Kjøp billett</button>
 </form>
+        </div>
+        <div class="col-md-6">
 <h2>Alle billetter</h2>
-<ul id="ticketList"></ul>
+            <table id="ticketTable" class="table">
+                <thead>
+                <tr>
+                    <th>Film</th>
+                    <th>Antall</th>
+                    <th>Fornavn</th>
+                    <th>Etternavn</th>
+                    <th>E-post</th>
+                    <th>Telefon</th>
+                </tr>
+                </thead>
+                <tbody id="ticketList">
+                </tbody>
+            </table>
 <div>
-    <button id="slettAlleBilletter" type="reset">Slett alle billettene</button>
+    <button id="slettAlleBilletter" type="reset" class="btn btn-danger">Slett alle billettene</button>
+</div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

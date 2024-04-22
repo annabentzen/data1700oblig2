@@ -5,6 +5,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tickets = [];
 
+    fetch('/hentFilmer')
+        .then(response => response.json())
+        .then(filmer => {
+            const movieDropdown = document.getElementById('movie');
+            filmer.forEach(film => {
+                let option = document.createElement('option');
+                option.text = film;
+                option.value = film;
+                movieDropdown.add(option);
+            });
+        });
+
     ticketForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -31,15 +43,34 @@ document.addEventListener('DOMContentLoaded', function () {
             phone: phone
         };
 
-        tickets.push(ticket);
+        fetch('/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ticket)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Nettverksrespons ikke ok');
+            }
+        }).then(data => {
+            // the order is successfully saved on the server
+            showTickets();
+        }).catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
         ticketForm.reset();
-        showTickets();
     });
 
     // Event listener for deleting tickets
     deleteTickets.addEventListener('click', function () {
-        tickets.length = 0;
-        showTickets();
+        fetch('/orders', {
+            method: 'DELETE'
+        }).then(() => {
+            ticketList.innerHTML = ''; //clear the ticket list
+            showTickets();
+        });
     });
 
     ticketForm.addEventListener('reset', function () {
@@ -47,12 +78,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function showTickets() {
-        ticketList.innerHTML = ' ';
-        tickets.forEach(function (ticket, index) {
-            const li = document.createElement('li');
-            li.textContent = `Film: ${ticket.movie}, Antall: ${ticket.quantity}, Fornavn: ${ticket.firstname}, Etternavn: ${ticket.surname}, E-post: ${ticket.email}, Telefon: ${ticket.phone}`;
-            ticketList.appendChild(li);
-        });
+        fetch('/orders')
+            .then(response => response.json())
+            .then(tickets => {
+                const ticketList = document.getElementById('ticketList');
+                ticketList.innerHTML = '';
+                tickets.forEach(function (ticket) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${ticket.movie}</td>
+                    <td>${ticket.quantity}</td>
+                    <td>${ticket.firstname}</td>
+                    <td>${ticket.surname}</td>
+                    <td>${ticket.email}</td>
+                    <td>${ticket.phone}</td>
+                `;
+                    ticketList.appendChild(tr);
+                });
+            });
     }
 
+    showTickets();
 });
